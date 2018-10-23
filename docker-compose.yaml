@@ -1,0 +1,10 @@
+version: '3'
+services:
+  golang:
+    build:
+      context: .
+      dockerfile: docker/golang/Dockerfile
+    volumes:
+    - .:/go/src/github.com/kaznishi/blog_tutorial_golang
+    ports:
+    - 8080:8080

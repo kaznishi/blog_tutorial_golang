@@ -1,0 +1,21 @@
+settings:
+  legacy:
+    force: false
+    interval: 0s
+schema:
+- name: blog_tutorial_golang
+  path: .
+  commands:
+    run:
+      status: true
+  watcher:
+    extensions:
+    - go
+    - html
+    - yaml
+    paths:
+    - /
+    ignored_paths:
+    - .git
+    - .realize
+    - vendor
