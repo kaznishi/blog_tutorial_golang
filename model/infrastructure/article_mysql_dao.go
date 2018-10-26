@@ -10,7 +10,7 @@ type ArticleMySQLDAO struct {
 }
 
 func (dao *ArticleMySQLDAO) GetList() ([]*data_model.Article, error) {
-	query := `SELECT id, title, content FROM articles`
+	query := `SELECT id, title, content, created_at, updated_at FROM articles`
 
 	rows, err := dao.MySQLConn.Query(query)
 	if err != nil {
@@ -25,6 +25,8 @@ func (dao *ArticleMySQLDAO) GetList() ([]*data_model.Article, error) {
 			&a.ID,
 			&a.Title,
 			&a.Content,
+			&a.CreatedAt,
+			&a.UpdatedAt,
 			)
 
 		if err != nil {

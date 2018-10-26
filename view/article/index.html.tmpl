@@ -1,10 +1,11 @@
 {{define "content"}}
 <div>
-    <p>hogehoge</p>
     {{range .Articles}}
         <p>ID: {{.ID}}</p>
         <p>Title: {{.Title}}</p>
         <p>Content: {{.Content}}</p>
+        <p>CreatedAt: {{.CreatedAt.Format "2006/01/02"}}</p>
+        <p>UpdatedAt: {{.UpdatedAt.Format "2006/01/02"}}</p>
     {{end}}
 </div>
 {{end}}
