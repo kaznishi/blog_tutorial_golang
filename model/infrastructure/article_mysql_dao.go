@@ -10,14 +10,30 @@ type ArticleMySQLDAO struct {
 }
 
 func (dao *ArticleMySQLDAO) GetList() ([]*data_model.Article, error) {
+	query := `SELECT id, title, content FROM articles`
+
+	rows, err := dao.MySQLConn.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
 	result := make([]*data_model.Article, 0)
-	a1 := &data_model.Article{ID:1, Title: "hoge", Body: "hogebody"}
-	result = append(result, a1)
-	a2 := &data_model.Article{ID:2, Title: "fuga", Body: "fugabody"}
-	result = append(result, a2)
-	a3 := &data_model.Article{ID:3, Title: "hoga", Body: "hogabody"}
-	result = append(result, a3)
-	return result, nil // dummy
+	for rows.Next() {
+		a := new(data_model.Article)
+		err = rows.Scan(
+			&a.ID,
+			&a.Title,
+			&a.Content,
+			)
+
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, a)
+	}
+
+	return result, nil
 }
 
 func (dao *ArticleMySQLDAO) GetById(id int) (*data_model.Article, error) {
