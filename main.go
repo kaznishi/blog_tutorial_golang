@@ -40,6 +40,7 @@ func main() {
 	m.HandleFunc("/", articleController.Index).Methods("GET")
 	m.HandleFunc("/view/{id:[0-9]+}", articleController.View).Methods("GET")
 
+	m.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(viper.GetString("server.address"), m)
 }
 
