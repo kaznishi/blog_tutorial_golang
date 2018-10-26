@@ -35,10 +35,12 @@ func main() {
 	articleRepository := repositoryManager.NewArticleRepository()
 	articleService := service.NewArticleService(articleRepository)
 	articleController := controller.NewArticleController(articleService)
+	adminController := controller.NewAdminController(articleService)
 
 	m := mux.NewRouter()
 	m.HandleFunc("/", articleController.Index).Methods("GET")
 	m.HandleFunc("/view/{id:[0-9]+}", articleController.View).Methods("GET")
+	m.HandleFunc("/admin/", adminController.Index).Methods("GET")
 
 	m.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(viper.GetString("server.address"), m)
