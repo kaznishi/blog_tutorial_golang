@@ -1,0 +1,10 @@
+{{define "content"}}
+<div>
+    <p>hogehoge</p>
+    {{range .Articles}}
+        <p>ID: {{.ID}}</p>
+        <p>Title: {{.Title}}</p>
+        <p>Content: {{.Content}}</p>
+    {{end}}
+</div>
+{{end}}
