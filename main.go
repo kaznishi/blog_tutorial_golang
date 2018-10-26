@@ -38,6 +38,7 @@ func main() {
 
 	m := mux.NewRouter()
 	m.HandleFunc("/", articleController.Index).Methods("GET")
+	m.HandleFunc("/view/{id:[0-9]+}", articleController.View).Methods("GET")
 
 	http.ListenAndServe(viper.GetString("server.address"), m)
 }

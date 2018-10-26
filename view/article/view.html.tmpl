@@ -1,0 +1,9 @@
+{{define "content"}}
+<div>
+    <p>ID: {{.Article.ID}}</p>
+    <p>Title: {{.Article.Title}}</p>
+    <p>Content: {{.Article.Content}}</p>
+    <p>CreatedAt: {{.Article.CreatedAt.Format "2006/01/02"}}</p>
+    <p>UpdatedAt: {{.Article.UpdatedAt.Format "2006/01/02"}}</p>
+</div>
+{{end}}
