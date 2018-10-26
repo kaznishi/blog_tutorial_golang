@@ -18,5 +18,13 @@ func NewArticleController(articleService service.ArticleService) ArticleControll
 }
 
 func (c *ArticleController) Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "一覧ページ")
+	articles, err := c.ArticleService.GetList()
+	if err != nil {
+		fmt.Fprint(w, "一覧ページ,エラー")
+	}
+	fmt.Fprint(w, "一覧ページ\n")
+	for _, article := range articles {
+		fmt.Fprint(w, article.Title)
+		fmt.Fprint(w, "\n")
+	}
 }

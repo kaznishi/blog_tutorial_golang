@@ -5,5 +5,6 @@ import (
 )
 
 type ArticleRepository interface {
-	GetById (id int) *data_model.Article
+	GetList() ([]*data_model.Article, error)
+	GetById(id int) (*data_model.Article, error)
 }
