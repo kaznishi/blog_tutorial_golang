@@ -1,9 +1,10 @@
 {{define "content"}}
-<div>
-    <p>ID: {{.Article.ID}}</p>
-    <p>Title: {{.Article.Title}}</p>
-    <p>Content: {{.Article.Content}}</p>
-    <p>CreatedAt: {{.Article.CreatedAt.Format "2006/01/02"}}</p>
-    <p>UpdatedAt: {{.Article.UpdatedAt.Format "2006/01/02"}}</p>
-</div>
+
+<div class="blog-post">
+    <h2 class="blog-post-title">{{.Article.Title}}</h2>
+    <p class="blog-post-meta">{{.Article.CreatedAt.Format "2006/01/02"}}</p>
+
+    <p>{{.Article.Content}}</p>
+</div><!-- /.blog-post -->
+
 {{end}}

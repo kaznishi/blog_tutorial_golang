@@ -8,6 +8,9 @@ services:
     - .:/go/src/github.com/kaznishi/blog_tutorial_golang
     ports:
     - 8080:8080
+    depends_on:
+    - mysql
+
   mysql:
     build:
       context: .
