@@ -1,15 +1,20 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
-	"github.com/spf13/viper"
 	"log"
+	"database/sql"
 	"net/http"
 	"net/url"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
+	"github.com/spf13/viper"
+
+	"github.com/kaznishi/blog_tutorial_golang/controller"
+	"github.com/kaznishi/blog_tutorial_golang/model/repository"
+	"github.com/kaznishi/blog_tutorial_golang/service"
 )
 
 func init() {
@@ -25,38 +30,16 @@ func init() {
 
 func main() {
 	dbConn := initDB()
-	repository := NewRepository(dbConn)
-	controller := NewController(repository)
+
+	repositoryManager := repository.NewRepositoryManager(dbConn)
+	articleRepository := repositoryManager.NewArticleRepository()
+	articleService := service.NewArticleService(articleRepository)
+	articleController := controller.NewArticleController(articleService)
 
 	m := mux.NewRouter()
-	m.HandleFunc("/", controller.Index).Methods("GET")
+	m.HandleFunc("/", articleController.Index).Methods("GET")
 
-//	router := config.Router()
 	http.ListenAndServe(viper.GetString("server.address"), m)
-}
-
-type Repository struct {
-	DB *sql.DB
-}
-
-func NewRepository(dbConn *sql.DB) Repository {
-	return Repository{
-		DB: dbConn,
-	}
-}
-
-type Controller struct {
-	Repository Repository
-}
-
-func NewController(repository Repository) Controller {
-	return Controller{
-		Repository: repository,
-	}
-}
-
-func (c *Controller) Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "一覧ページ")
 }
 
 
