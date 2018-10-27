@@ -35,10 +35,12 @@ func main() {
 	articleService := service.NewArticleService(articleRepository)
 	articleController := controller.NewArticleController(articleService)
 	adminController := controller.NewAdminController(articleService)
+	loginController := controller.NewLoginController()
 
 	m := mux.NewRouter()
 	m.HandleFunc("/", articleController.Index).Methods("GET")
 	m.HandleFunc("/view/{id:[0-9]+}", articleController.View).Methods("GET")
+	m.HandleFunc("/login", loginController.Login)
 	m.HandleFunc("/admin/", adminController.Index).Methods("GET")
 	m.HandleFunc("/admin/article/new", adminController.NewArticle)
 	m.HandleFunc("/admin/article/edit/{id:[0-9]+}", adminController.EditArticle)

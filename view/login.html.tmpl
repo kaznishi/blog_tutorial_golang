@@ -21,22 +21,23 @@
 
 <body>
 
-<div class="blog-masthead">
-    <div class="container">
-        <nav class="blog-nav">
-            <a class="blog-nav-item active" href="/">Home</a>
-        </nav>
-    </div>
-</div>
 
 <div class="container">
 
-    <div class="blog-header">
-        <h1 class="blog-title">The Bootstrap Blog</h1>
-        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
-    </div>
+    <h1 class="page-header">Login Form</h1>
 
-{{template "content" .}}
+    <form method="post" action="/login">
+        <div class="form-group">
+            <label for="login-form-name">Name</label>
+            <input name="name" type="text" class="form-control" id="login-form-name" placeholder="some name" value="">
+        </div>
+        <div class="form-group">
+            <label for="login-form-name">Password</label>
+            <input name="password" type="password" class="form-control" id="login-form-password" value="">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
 </div>
 </body>
 
