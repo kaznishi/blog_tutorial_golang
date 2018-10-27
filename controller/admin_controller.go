@@ -19,6 +19,11 @@ func NewAdminController(articleService service.ArticleService) AdminController {
 }
 
 func (c *AdminController) Index(w http.ResponseWriter, r *http.Request) {
+	articles, err := c.ArticleService.GetList()
+	if err != nil {
+		fmt.Fprint(w, "一覧ページ,エラー")
+		fmt.Fprint(w, err)
+	}
 
 	tmpl, err := template.ParseFiles("view/layout_admin.html.tmpl", "view/admin/index.html.tmpl")
 	if err != nil {
@@ -28,8 +33,10 @@ func (c *AdminController) Index(w http.ResponseWriter, r *http.Request) {
 
 	data := struct {
 		Title string
+		Articles []*data_model.Article
 	}{
 		Title: "管理画面トップページ",
+		Articles: articles,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {
