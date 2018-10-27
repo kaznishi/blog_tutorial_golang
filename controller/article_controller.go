@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/kaznishi/blog_tutorial_golang/model/data_model"
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -28,7 +27,7 @@ func (c *ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 	}
 
-	tmpl, err := template.ParseFiles("view/layout.html.tmpl", "view/article/index.html.tmpl")
+	tmpl, err := initializeTemplate().ParseFiles("view/layout.html.tmpl", "view/article/index.html.tmpl")
 	if err != nil {
 		fmt.Fprint(w, "一覧ページ,エラー")
 		fmt.Fprint(w, err)
@@ -42,7 +41,7 @@ func (c *ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 		Articles: articles,
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "layout.html.tmpl", data); err != nil {
 		fmt.Fprint(w, "一覧ページ,エラー")
 		fmt.Fprint(w, err)
 	}
@@ -63,7 +62,7 @@ func (c *ArticleController) View(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := template.ParseFiles("view/layout.html.tmpl", "view/article/view.html.tmpl")
+	tmpl, err := initializeTemplate().ParseFiles("view/layout.html.tmpl", "view/article/view.html.tmpl")
 	if err != nil {
 		fmt.Errorf("Error : %s", err)
 		fmt.Fprint(w, "Error : ", err)
@@ -78,7 +77,7 @@ func (c *ArticleController) View(w http.ResponseWriter, r *http.Request) {
 		Article: article,
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "layout.html.tmpl", data); err != nil {
 		fmt.Errorf("Error : %s", err)
 		fmt.Fprint(w, "Error : ", err)
 		return

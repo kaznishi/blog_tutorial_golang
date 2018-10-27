@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/kaznishi/blog_tutorial_golang/model/data_model"
 	"github.com/kaznishi/blog_tutorial_golang/service"
-	"html/template"
 	"net/http"
 )
 
@@ -25,7 +24,7 @@ func (c *AdminController) Index(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 	}
 
-	tmpl, err := template.ParseFiles("view/layout_admin.html.tmpl", "view/admin/index.html.tmpl")
+	tmpl, err := initializeTemplate().ParseFiles("view/layout_admin.html.tmpl", "view/admin/index.html.tmpl")
 	if err != nil {
 		fmt.Fprint(w, "一覧ページ,エラー")
 		fmt.Fprint(w, err)
@@ -39,7 +38,7 @@ func (c *AdminController) Index(w http.ResponseWriter, r *http.Request) {
 		Articles: articles,
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "layout_admin.html.tmpl", data); err != nil {
 		fmt.Fprint(w, "一覧ページ,エラー")
 		fmt.Fprint(w, err)
 	}
@@ -65,7 +64,7 @@ func (c *AdminController) NewArticle(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	tmpl, err := template.ParseFiles("view/layout_admin.html.tmpl", "view/admin/new_article.html.tmpl")
+	tmpl, err := initializeTemplate().ParseFiles("view/layout_admin.html.tmpl", "view/admin/new_article.html.tmpl")
 	if err != nil {
 		fmt.Fprint(w, "新規記事投稿フォーム,エラー")
 		fmt.Fprint(w, err)
@@ -79,7 +78,7 @@ func (c *AdminController) NewArticle(w http.ResponseWriter, r *http.Request) {
 		Article: a,
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "layout_admin.html.tmpl", data); err != nil {
 		fmt.Fprint(w, "新規記事投稿フォーム,エラー")
 		fmt.Fprint(w, err)
 	}

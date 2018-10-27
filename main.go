@@ -1,16 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"log"
 	"database/sql"
-	"net/http"
-	"net/url"
-	"os"
-
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
+	"log"
+	"net/http"
+	"net/url"
+	"os"
 
 	"github.com/kaznishi/blog_tutorial_golang/controller"
 	"github.com/kaznishi/blog_tutorial_golang/model/repository"
@@ -46,7 +45,6 @@ func main() {
 	m.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(viper.GetString("server.address"), m)
 }
-
 
 func initDB() *sql.DB {
 

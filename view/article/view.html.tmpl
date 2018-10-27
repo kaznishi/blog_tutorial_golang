@@ -4,7 +4,7 @@
     <h2 class="blog-post-title">{{.Article.Title}}</h2>
     <p class="blog-post-meta">{{.Article.CreatedAt.Format "2006/01/02"}}</p>
 
-    <p>{{.Article.Content}}</p>
+    <p>{{.Article.Content | nl2br}}</p>
 </div><!-- /.blog-post -->
 
 {{end}}
