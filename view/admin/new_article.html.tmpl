@@ -1,0 +1,16 @@
+{{define "content"}}
+<h1 class="page-header">New Article</h1>
+
+<h2 class="sub-header">Form</h2>
+<form method="post" action="/admin/article/new">
+    <div class="form-group">
+        <label for="article-form-title">Title</label>
+        <input name="title" type="text" class="form-control" id="article-form-title" placeholder="some title" value="{{.Article.Title}}">
+    </div>
+    <div class="form-group">
+        <label for="article-form-content">Content</label>
+        <textarea name="content" class="form-control" id="article-form-content" rows="18" placeholder="some content">{{.Article.Content}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{{end}}

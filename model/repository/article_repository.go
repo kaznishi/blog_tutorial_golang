@@ -7,4 +7,5 @@ import (
 type ArticleRepository interface {
 	GetList() ([]*data_model.Article, error)
 	GetById(id int) (*data_model.Article, error)
+	Create(*data_model.Article) (int, error)
 }

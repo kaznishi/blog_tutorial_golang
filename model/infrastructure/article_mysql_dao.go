@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"github.com/kaznishi/blog_tutorial_golang/errors"
 	"github.com/kaznishi/blog_tutorial_golang/model/data_model"
+	"time"
 )
 
 type ArticleMySQLDAO struct {
@@ -57,4 +58,25 @@ func (dao *ArticleMySQLDAO) GetById(id int) (*data_model.Article, error) {
 	}
 
 	return result, nil
+}
+
+func (dao *ArticleMySQLDAO) Create(a *data_model.Article) (int, error) {
+	query := `INSERT articles SET title = ?, content = ?, created_at = ?, updated_at = ?`
+	stmt, err := dao.MySQLConn.Prepare(query)
+	if err != nil {
+		return 0, err
+	}
+	a.CreatedAt = time.Now()
+	a.UpdatedAt = time.Now()
+	res, err := stmt.Exec(
+		a.Title,
+		a.Content,
+		a.CreatedAt.Format("2006/01/02 15:04:05"),
+		a.UpdatedAt.Format("2006/01/02 15:04:05"))
+	if err != nil {
+		return 0, err
+	}
+
+	id, err := res.LastInsertId()
+	return int(id), nil
 }
