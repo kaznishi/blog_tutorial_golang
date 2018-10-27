@@ -26,3 +26,7 @@ func (as *ArticleService) GetById(id int) (*data_model.Article, error) {
 func (as *ArticleService) CreateArticle(a *data_model.Article) (int, error) {
 	return as.ArticleRepository.Create(a)
 }
+
+func (as *ArticleService) UpdateArticle(a *data_model.Article) (*data_model.Article, error) {
+	return as.ArticleRepository.Update(a)
+}

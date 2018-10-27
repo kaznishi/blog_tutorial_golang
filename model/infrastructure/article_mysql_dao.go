@@ -80,3 +80,30 @@ func (dao *ArticleMySQLDAO) Create(a *data_model.Article) (int, error) {
 	id, err := res.LastInsertId()
 	return int(id), nil
 }
+
+func (dao *ArticleMySQLDAO) Update(a *data_model.Article) (*data_model.Article, error) {
+	query := `UPDATE articles SET title = ?, content = ?, updated_at = ? WHERE id = ?`
+	stmt, err := dao.MySQLConn.Prepare(query)
+	if err != nil {
+		return a, err
+	}
+	a.UpdatedAt = time.Now()
+	_, err = stmt.Exec(
+		a.Title,
+		a.Content,
+		a.UpdatedAt.Format("2006/01/02 15:04:05"),
+		a.ID,
+		)
+	if err != nil {
+		return a, err
+	}
+
+	return a, nil
+}
+
+
+
+
+
+
+

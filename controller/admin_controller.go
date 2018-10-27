@@ -101,22 +101,22 @@ func (c *AdminController) EditArticle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//if r.Method == http.MethodPost {
-	//	if err := r.ParseForm(); err != nil {
-	//		fmt.Fprint(w, "記事編集フォーム,エラー")
-	//		fmt.Fprint(w, err)
-	//	}
-	//	a.Title = r.FormValue("title")
-	//	a.Content = r.FormValue("content")
-	//
-	//	_, err := c.ArticleService.CreateArticle(a)
-	//	if err != nil {
-	//		fmt.Fprint(w, "記事編集フォーム,エラー")
-	//		fmt.Fprint(w, err)
-	//	} else {
-	//		http.Redirect(w, r, "/admin/", 301)
-	//	}
-	//}
+	if r.Method == http.MethodPost {
+		if err := r.ParseForm(); err != nil {
+			fmt.Fprint(w, "記事編集フォーム,エラー")
+			fmt.Fprint(w, err)
+		}
+		a.Title = r.FormValue("title")
+		a.Content = r.FormValue("content")
+
+		_, err := c.ArticleService.UpdateArticle(a)
+		if err != nil {
+			fmt.Fprint(w, "記事編集フォーム,エラー")
+			fmt.Fprint(w, err)
+		} else {
+			http.Redirect(w, r, "/admin/", 301)
+		}
+	}
 
 	tmpl, err := initializeTemplate().ParseFiles("view/layout_admin.html.tmpl", "view/admin/edit_article.html.tmpl")
 	if err != nil {
