@@ -5,16 +5,16 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/kaznishi/blog_tutorial_golang/controller"
+	"github.com/kaznishi/blog_tutorial_golang/model/repository"
+	"github.com/kaznishi/blog_tutorial_golang/service"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
-
-	"github.com/kaznishi/blog_tutorial_golang/controller"
-	"github.com/kaznishi/blog_tutorial_golang/model/repository"
-	"github.com/kaznishi/blog_tutorial_golang/service"
 )
+
 
 func init() {
 	viper.SetConfigFile(`config.yaml`)
