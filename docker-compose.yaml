@@ -10,6 +10,7 @@ services:
     - 8080:8080
     depends_on:
     - mysql
+    - redis
 
   mysql:
     build:
@@ -38,6 +39,12 @@ services:
     - 8900:80
     volumes:
     - session-volume:/sessions
+  redis:
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    ports:
+    - 16379:6379
 
 volumes:
   db-volume:
