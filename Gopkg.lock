@@ -10,6 +10,17 @@
   version = "v1.4.7"
 
 [[projects]]
+  digest = "1:0594af97b2f4cec6554086eeace6597e20a4b69466eb4ada25adf9f4300dddd2"
+  name = "github.com/garyburd/redigo"
+  packages = [
+    "internal",
+    "redis",
+  ]
+  pruneopts = "UT"
+  revision = "a69d19351219b6dd56f274f96d85a7014a2ec34e"
+  version = "v1.6.0"
+
+[[projects]]
   digest = "1:adea5a94903eb4384abef30f3d878dc9ff6b6b5b0722da25b82e5169216dfb61"
   name = "github.com/go-sql-driver/mysql"
   packages = ["."]
@@ -167,6 +178,14 @@
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:db932d4696ed23e244a69a60d258a23816aceb012a95e4c3871c711d4fc120e7"
+  name = "gopkg.in/boj/redistore.v1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "fc113767cd6b051980f260d6dbe84b2740c46ab0"
+  version = "v1.2"
+
+[[projects]]
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
@@ -182,6 +201,7 @@
     "github.com/gorilla/mux",
     "github.com/gorilla/sessions",
     "github.com/spf13/viper",
+    "gopkg.in/boj/redistore.v1",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
