@@ -55,6 +55,7 @@ func main() {
 	m.HandleFunc("/admin/", smw.Run(adminController.Index)).Methods("GET")
 	m.HandleFunc("/admin/article/new", smw.Run(adminController.NewArticle))
 	m.HandleFunc("/admin/article/edit/{id:[0-9]+}", smw.Run(adminController.EditArticle))
+	m.HandleFunc("/admin/user/list", smw.Run(adminController.ListUser))
 
 	m.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(viper.GetString("server.address"), m)

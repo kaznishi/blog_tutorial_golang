@@ -1,0 +1,24 @@
+{{define "content"}}
+<h1 class="page-header">Dashboard</h1>
+
+<h2 class="sub-header">User List</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .Users}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.Name}}</td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+
+{{end}}

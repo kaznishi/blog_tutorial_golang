@@ -140,3 +140,28 @@ func (c *AdminController) EditArticle(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func (c *AdminController) ListUser(w http.ResponseWriter, r *http.Request) {
+	users, err := c.UserService.GetList()
+	if err != nil {
+		fmt.Fprint(w, err)
+	}
+
+	tmpl, err := initializeTemplate().ParseFiles("view/layout_admin.html.tmpl", "view/admin/list_user.html.tmpl")
+	if err != nil {
+		fmt.Fprint(w, err)
+	}
+
+	data := struct {
+		Title   string
+		Users []*data_model.User
+	}{
+		Title:   "ユーザ一覧",
+		Users: users,
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "layout_admin.html.tmpl", data); err != nil {
+		fmt.Fprint(w, err)
+	}
+
+}
