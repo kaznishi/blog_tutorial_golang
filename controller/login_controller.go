@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-//var cStore = sessions.NewCookieStore([]byte("a6b0e040989e6131daccca9290cb64a0444b52dfc3bf22b8b77f938542f79757"))
-
 type LoginController struct {
 	SessionService service.SessionService
 }
