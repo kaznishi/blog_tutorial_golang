@@ -39,7 +39,7 @@ func main() {
 
 	articleService := service.NewArticleService(articleRepository)
 	userService := service.NewUserService(userRepository)
-	sessionService := service.NewSessionService(sessionStore,userRepository)
+	sessionService := service.NewSessionService(sessionStore, userRepository)
 
 	articleController := controller.NewArticleController(articleService)
 	adminController := controller.NewAdminController(articleService, userService)
