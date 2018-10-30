@@ -116,6 +116,7 @@ func (c *AdminController) EditArticle(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "記事編集フォーム,エラー")
 			fmt.Fprint(w, err)
 		} else {
+			noCacheCookie(w)
 			http.Redirect(w, r, "/admin/", 301)
 		}
 	}
@@ -156,6 +157,7 @@ func (c *AdminController) ListUser(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Fprint(w, err)
 		} else {
+			noCacheCookie(w)
 			http.Redirect(w, r, "/admin/user/list", 301)
 		}
 	}

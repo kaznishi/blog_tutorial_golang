@@ -34,6 +34,7 @@ func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "ログインフォーム,エラー")
 			fmt.Fprint(w, err)
 		} else {
+			noCacheCookie(w)
 			http.Redirect(w, r, "/admin/", 301)
 		}
 	}
@@ -53,5 +54,7 @@ func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 
 func (lc *LoginController) Logout(w http.ResponseWriter, r *http.Request) {
 	lc.SessionService.Logout(w, r)
+
+	noCacheCookie(w)
 	http.Redirect(w, r, "/", 301)
 }

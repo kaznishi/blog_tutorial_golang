@@ -2,6 +2,7 @@ package controller
 
 import (
 	"html/template"
+	"net/http"
 	"strings"
 )
 
@@ -12,4 +13,12 @@ func initializeTemplate() *template.Template {
 		},
 	}
 	return template.New("dummy").Funcs(TemplateFunctions)
+}
+
+func noCacheCookie(w http.ResponseWriter) {
+	cookie := &http.Cookie{
+		Name: "Pragma",
+		Value: "no-cache",
+	}
+	http.SetCookie(w, cookie)
 }
