@@ -142,6 +142,24 @@ func (c *AdminController) EditArticle(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *AdminController) ListUser(w http.ResponseWriter, r *http.Request) {
+	name := ""
+	password := ""
+
+	if r.Method == http.MethodPost {
+		if err := r.ParseForm(); err != nil {
+			fmt.Fprint(w, err)
+		}
+		name = r.FormValue("name")
+		password = r.FormValue("password")
+
+		_, err := c.UserService.CreateUser(name, password)
+		if err != nil {
+			fmt.Fprint(w, err)
+		} else {
+			http.Redirect(w, r, "/admin/user/list", 301)
+		}
+	}
+
 	users, err := c.UserService.GetList()
 	if err != nil {
 		fmt.Fprint(w, err)
@@ -155,9 +173,13 @@ func (c *AdminController) ListUser(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Title   string
 		Users []*data_model.User
+		Name string
+		Password string
 	}{
 		Title:   "ユーザ一覧",
 		Users: users,
+		Name: name,
+		Password: password,
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "layout_admin.html.tmpl", data); err != nil {

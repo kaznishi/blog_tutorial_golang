@@ -21,4 +21,16 @@
     </table>
 </div>
 
+<h2 class="sub-header">User Register Form</h2>
+<form method="post" action="/admin/user/list">
+    <div class="form-group">
+        <label for="user-form-name">Name</label>
+        <input name="name" type="text" class="form-control" id="user-form-name" placeholder="some name" value="{{.Name}}">
+    </div>
+    <div class="form-group">
+        <label for="user-form-password">Password</label>
+        <input name="password" type="password" class="form-control" id="user-form-password" value="{{.Password}}">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 {{end}}
