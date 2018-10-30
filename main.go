@@ -6,18 +6,17 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
-	"gopkg.in/boj/redistore.v1"
 	"github.com/kaznishi/blog_tutorial_golang/controller"
 	"github.com/kaznishi/blog_tutorial_golang/controller/middleware"
 	"github.com/kaznishi/blog_tutorial_golang/model/repository"
 	"github.com/kaznishi/blog_tutorial_golang/service"
 	"github.com/spf13/viper"
+	"gopkg.in/boj/redistore.v1"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
 )
-
 
 func init() {
 	viper.SetConfigFile(`config.yaml`)

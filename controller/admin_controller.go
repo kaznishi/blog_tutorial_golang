@@ -33,10 +33,10 @@ func (c *AdminController) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Title string
+		Title    string
 		Articles []*data_model.Article
 	}{
-		Title: "管理画面トップページ",
+		Title:    "管理画面トップページ",
 		Articles: articles,
 	}
 
@@ -73,10 +73,10 @@ func (c *AdminController) NewArticle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Title string
+		Title   string
 		Article *data_model.Article
 	}{
-		Title: "新規記事投稿フォーム",
+		Title:   "新規記事投稿フォーム",
 		Article: a,
 	}
 
@@ -125,10 +125,10 @@ func (c *AdminController) EditArticle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Title string
+		Title   string
 		Article *data_model.Article
 	}{
-		Title: "記事編集フォーム",
+		Title:   "記事編集フォーム",
 		Article: a,
 	}
 

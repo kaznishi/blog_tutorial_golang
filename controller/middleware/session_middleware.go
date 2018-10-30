@@ -1,10 +1,10 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/kaznishi/blog_tutorial_golang/service"
 	"net/http"
-	"time"
 )
 
 type SessionMiddleware struct {
@@ -30,17 +30,17 @@ func (m *SessionMiddleware) Run(next http.HandlerFunc) http.HandlerFunc {
 func (m *SessionMiddleware) getCurrentSession(r *http.Request) (*sessions.Session, error) {
 	cookie, err := r.Cookie("sessId")
 	if err != nil {
-		return &sessions.Session{}, err
-	}
-
-	if cookie.Expires.Before(time.Now()) {
+		fmt.Println("hoge1")
 		return &sessions.Session{}, err
 	}
 
 	session, err := m.sessionService.GetSession(r, cookie.Name)
 	if err != nil {
+		fmt.Println("hoge3")
 		return &sessions.Session{}, err
 	}
 
+	fmt.Println("hoge4")
+	fmt.Println(session)
 	return session, nil
 }

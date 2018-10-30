@@ -34,10 +34,10 @@ func (c *ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Title string
+		Title    string
 		Articles []*data_model.Article
 	}{
-		Title: "一覧ページ",
+		Title:    "一覧ページ",
 		Articles: articles,
 	}
 
@@ -70,10 +70,10 @@ func (c *ArticleController) View(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Title string
+		Title   string
 		Article *data_model.Article
 	}{
-		Title: "個別ページ",
+		Title:   "個別ページ",
 		Article: article,
 	}
 

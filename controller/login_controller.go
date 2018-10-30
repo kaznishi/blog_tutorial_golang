@@ -11,8 +11,7 @@ type LoginController struct {
 }
 
 func NewLoginController() LoginController {
-	return LoginController{
-	}
+	return LoginController{}
 }
 
 func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
