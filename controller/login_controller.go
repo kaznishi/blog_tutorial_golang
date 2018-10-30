@@ -2,16 +2,18 @@ package controller
 
 import (
 	"fmt"
+	"github.com/kaznishi/blog_tutorial_golang/service"
 	"net/http"
 )
 
 //var cStore = sessions.NewCookieStore([]byte("a6b0e040989e6131daccca9290cb64a0444b52dfc3bf22b8b77f938542f79757"))
 
 type LoginController struct {
+	SessionService service.SessionService
 }
 
-func NewLoginController() LoginController {
-	return LoginController{}
+func NewLoginController(s service.SessionService) LoginController {
+	return LoginController{SessionService: s}
 }
 
 func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
@@ -21,10 +23,20 @@ func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 	}
 
-	//session, _ := cStore.Get(r, "session-name")
-	//session.Values["foo"] = "bar"
-	//session.Values[42] = 43
-	//session.Save(r, w)
+	if r.Method == http.MethodPost {
+		if err := r.ParseForm(); err != nil {
+			fmt.Fprint(w, "ログインフォーム,エラー")
+			fmt.Fprint(w, err)
+		}
+
+		err := lc.SessionService.Login(w, r)
+		if err != nil {
+			fmt.Fprint(w, "ログインフォーム,エラー")
+			fmt.Fprint(w, err)
+		} else {
+			http.Redirect(w, r, "/admin/", 301)
+		}
+	}
 
 	data := struct {
 		Title string
@@ -37,4 +49,9 @@ func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, err)
 	}
 
+}
+
+func (lc *LoginController) Logout(w http.ResponseWriter, r *http.Request) {
+	lc.SessionService.Logout(w, r)
+	http.Redirect(w, r, "/", 301)
 }
