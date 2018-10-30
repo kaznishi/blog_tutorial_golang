@@ -11,11 +11,13 @@ import (
 
 type AdminController struct {
 	ArticleService service.ArticleService
+	UserService service.UserService
 }
 
-func NewAdminController(articleService service.ArticleService) AdminController {
+func NewAdminController(articleService service.ArticleService, userService service.UserService) AdminController {
 	return AdminController{
 		ArticleService: articleService,
+		UserService: userService,
 	}
 }
 
