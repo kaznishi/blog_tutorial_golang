@@ -62,3 +62,14 @@ func (s *SessionService) Logout(w http.ResponseWriter, r *http.Request) error {
 
 	return s.SaveSession(r, w, session)
 }
+
+func (s *SessionService) IsLogin(r *http.Request) bool {
+	session, err := s.GetSession(r, "sessId")
+	if err != nil {
+		return false
+	}
+	if session.Values["login"] != "true" {
+		return false
+	}
+	return true
+}

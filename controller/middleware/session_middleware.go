@@ -15,7 +15,7 @@ func NewSessionMiddleware(service service.SessionService) SessionMiddleware {
 	return SessionMiddleware{sessionService:service}
 }
 
-func (m *SessionMiddleware) Run(next http.HandlerFunc) http.HandlerFunc {
+func (m *SessionMiddleware) SessionStart(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session, err := m.getCurrentSession(r)
 		if err != nil {
@@ -23,6 +23,20 @@ func (m *SessionMiddleware) Run(next http.HandlerFunc) http.HandlerFunc {
 			m.sessionService.SaveSession(r, w, session)
 		}
 
+		next.ServeHTTP(w, r)
+	}
+}
+
+func (m *SessionMiddleware) ForOnlyLoginUser(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if !m.sessionService.IsLogin(r) {
+			cookie := &http.Cookie{
+				Name: "Pragma",
+				Value: "no-cache",
+			}
+			http.SetCookie(w, cookie)
+			http.Redirect(w, r, "/login", 301)
+		}
 		next.ServeHTTP(w, r)
 	}
 }
