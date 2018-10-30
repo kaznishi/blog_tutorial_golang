@@ -31,17 +31,20 @@ func init() {
 
 func main() {
 	sessionStore := initSessionStore()
-	sessionService := service.NewSessionService(sessionStore)
-	smw := middleware.NewSessionMiddleware(sessionService)
 
 	dbConn := initDB()
-
 	repositoryManager := repository.NewRepositoryManager(dbConn)
 	articleRepository := repositoryManager.NewArticleRepository()
+	userRepository := repositoryManager.NewUserRepository()
+
 	articleService := service.NewArticleService(articleRepository)
+	sessionService := service.NewSessionService(sessionStore,userRepository)
+
 	articleController := controller.NewArticleController(articleService)
 	adminController := controller.NewAdminController(articleService)
 	loginController := controller.NewLoginController(sessionService)
+
+	smw := middleware.NewSessionMiddleware(sessionService)
 
 	m := mux.NewRouter()
 	m.HandleFunc("/", smw.Run(articleController.Index)).Methods("GET")

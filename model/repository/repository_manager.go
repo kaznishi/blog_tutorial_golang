@@ -18,3 +18,7 @@ func NewRepositoryManager(mysqlConn *sql.DB) RepositoryManager {
 func (rm *RepositoryManager) NewArticleRepository() ArticleRepository {
 	return &infrastructure.ArticleMySQLDAO{rm.MySQLConn}
 }
+
+func (rm *RepositoryManager) NewUserRepository() UserRepository {
+	return &infrastructure.UserMySQLDAO{rm.MySQLConn}
+}

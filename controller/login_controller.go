@@ -26,8 +26,10 @@ func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "ログインフォーム,エラー")
 			fmt.Fprint(w, err)
 		}
+		name := r.FormValue("name")
+		password := r.FormValue("password")
 
-		err := lc.SessionService.Login(w, r)
+		err := lc.SessionService.Login(name, password, w, r)
 		if err != nil {
 			fmt.Fprint(w, "ログインフォーム,エラー")
 			fmt.Fprint(w, err)
