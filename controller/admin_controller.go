@@ -189,3 +189,46 @@ func (c *AdminController) ListUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func (ac *AdminController) Start(w http.ResponseWriter, r *http.Request) {
+	users, err := ac.UserService.GetList()
+	if err != nil {
+		fmt.Fprint(w, err)
+	}
+	if len(users) > 0 {
+		noCacheCookie(w)
+		http.Redirect(w, r, "/", 301)
+	}
+
+	tmpl, err := initializeTemplate().ParseFiles("view/start.html.tmpl")
+	if err != nil {
+		fmt.Fprint(w, err)
+	}
+
+	if r.Method == http.MethodPost {
+		if err := r.ParseForm(); err != nil {
+			fmt.Fprint(w, err)
+		}
+		name := r.FormValue("name")
+		password := r.FormValue("password")
+
+		_, err := ac.UserService.CreateUser(name, password)
+		if err != nil {
+			fmt.Fprint(w, err)
+		} else {
+			noCacheCookie(w)
+			http.Redirect(w, r, "/", 301)
+		}
+	}
+
+	data := struct {
+		Title string
+	}{
+		Title: "初期ユーザ登録フォーム",
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "start.html.tmpl", data); err != nil {
+		fmt.Fprint(w, err)
+	}
+
+}

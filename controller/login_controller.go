@@ -11,7 +11,9 @@ type LoginController struct {
 }
 
 func NewLoginController(s service.SessionService) LoginController {
-	return LoginController{SessionService: s}
+	return LoginController{
+		SessionService: s,
+	}
 }
 
 func (lc *LoginController) Login(w http.ResponseWriter, r *http.Request) {
@@ -58,3 +60,4 @@ func (lc *LoginController) Logout(w http.ResponseWriter, r *http.Request) {
 	noCacheCookie(w)
 	http.Redirect(w, r, "/", 301)
 }
+

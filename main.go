@@ -48,6 +48,7 @@ func main() {
 	smw := middleware.NewSessionMiddleware(sessionService)
 
 	m := mux.NewRouter()
+	m.HandleFunc("/start", smw.SessionStart(adminController.Start))
 	m.HandleFunc("/", smw.SessionStart(articleController.Index)).Methods("GET")
 	m.HandleFunc("/view/{id:[0-9]+}", smw.SessionStart(articleController.View)).Methods("GET")
 	m.HandleFunc("/login", smw.SessionStart(loginController.Login))
